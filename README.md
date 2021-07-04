@@ -18,6 +18,8 @@ will remove any files in the source folder that have duplicates in the dest fold
     
 will try to figure out the dates photo files were taken and move them to folders of the form YYYY/MM/DD/fname. It will use EXIF tags if present, else will try infer from the file name. If it tries to move a file and the target file already exists, it will just delete the source file (if identical) or move and rename it (if not identical).
 
+It can move files across file systems; if a simple rename fails it will fall back to copy/delete.
+
 There are a bunch of command line arguments that will control the behavior; use:
 
     photorg --help
