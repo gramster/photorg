@@ -14,6 +14,10 @@ will dump EXIF tags from a file.
     
 will remove any files in the source folder that have duplicates in the dest folder. The source and dest folders can be disjoint, or the source folder can be a subfolder of the dest folder. It would make no sense the other way around. Note that it can take a long time before this command starts producing log messages, as it collects data on all the files first.
 
+    photorger clean --source=<folder>
+    
+is similar but searches just a single folder tree, and in this case if it finds a set of duplicates it will keep the file with the oldest timestamp; this behavior can be changed with other arguments.
+
     photorger move
     
 will try to figure out the dates photo files were taken and move them to folders of the form YYYY/MM/DD/fname. It will use EXIF tags if present, else will try infer from the file name. If it tries to move a file and the target file already exists, it will just delete the source file (if identical) or move and rename it (if not identical).
