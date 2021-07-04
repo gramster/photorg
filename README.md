@@ -16,7 +16,7 @@ will remove any files in the source folder that have duplicates in the dest fold
 
     photorg move
     
-will try to figure out the dates a photo was taken and move it to a folder of the form YYYY/MM/DD/file.
+will try to figure out the dates photo files were taken and move them to folders of the form YYYY/MM/DD/fname. It will use EXIF tags if present, else will try infer from the file name. If it tries to move a file and the target file already exists, it will just delete the source file (if identical) or move and rename it (if not identical).
 
 There are a bunch of command line arguments that will control the behavior; use:
 
