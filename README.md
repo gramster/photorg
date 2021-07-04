@@ -12,7 +12,7 @@ will dump EXIF tags from a file.
 
     photorg clean --source=<folder> --dest=<folder>
     
-will remove any files in the source folder that have duplicates in the dest folder. The source and dest folders can be disjoint, or the source folder can be a subfolder of the dest folder. It would make no sense the other way around.
+will remove any files in the source folder that have duplicates in the dest folder. The source and dest folders can be disjoint, or the source folder can be a subfolder of the dest folder. It would make no sense the other way around. Note that it can take a long time before this command starts producing log messages, as it collects data on all the files first.
 
     photorg move
     
