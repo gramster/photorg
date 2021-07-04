@@ -1,8 +1,8 @@
 # photorg
 
-To install, you need a working Python environment. Then clone this repo and in the root run:
+To install, you need a working Python environment with pip. Then clone this repo and in the root run:
 
-    PBR_VERSION=1.0.0 pip install .
+    PBR_VERSION=1.0.0 python -m pip install .
 
 To run:
 
