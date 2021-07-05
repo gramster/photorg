@@ -20,7 +20,7 @@ will remove any files in the source folder that have duplicates in the dest fold
 
     photorger clean --source=<folder>
     
-is similar but searches just a single folder tree, and in this case if it finds a set of duplicates it will keep the file(s) that are in folders with a YYYY/MM/DD format; this behavior can be changed with other arguments.
+is similar but searches just a single folder tree, and in this case if it finds a set of duplicates it will keep the file(s) that are in folders with a YYYY/MM/DD format; this behavior can be changed with other arguments. After running this with no argument or with the arguments you prefer, you will likely still have duplicates, but you can run it again with a `--force` argument which will then use lexical ordering on the file paths to determine a single file in each duplicate group to keep, eliminating all other duplicates.
 
     photorger move
     
