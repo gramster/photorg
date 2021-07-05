@@ -349,7 +349,7 @@ def clean_main():
 
     # Find all the files to check
     for filename in glob.iglob(path_join(source, '/**/*'), recursive=not norecurse):
-        if filename.find('@eaDir') >= 0:  # Synology use only; need a way to configure these
+        if filename.find('@eaDir') >= 0 or filename.find('#recycle') >= 0:  # Synology use only; need a way to configure these
             continue
         if not os.path.isfile(filename):
             if os.path.isdir(filename):
@@ -371,7 +371,7 @@ def clean_main():
         if spath[-1] != '/':
             spath += '/'
         for filename in glob.iglob(path_join(target, '/**/*'), recursive=True):
-            if filename.find('@eaDir') >= 0:  # Synology use only; need a way to configure these
+            if filename.find('@eaDir') >= 0 or filename.find('#recycle') >= 0:  # Synology use only; need a way to configure these
                 continue
             if filename[:len(spath)] == spath: # Skip files in source folder
                 continue
