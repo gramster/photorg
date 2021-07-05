@@ -11,13 +11,14 @@ from shutil import copyfile
 import exifread
 
 
+# Command-line settings
 source = os.getcwd()
 target = os.getcwd()
 noclean = True
 nodeep = False
 nocache = True
+norename = False
 pretend = False
-use_rename = True
 copy = False
 verbose = False
 newest = False
@@ -26,11 +27,16 @@ shortest = False
 longest = False
 force = False
 
+# use_rename means use os.rename rather than file copy. We default to this and turn
+# it off if rename fails, which may be because the source and destination are on 
+# different file systems so copy is the only option.
+use_rename = True
+
+# RegExps used to get date info from file paths
 # These would need some fixing for Windows
-path_re1=re.compile('^(.*)/([12][90][01289][0-9])/([01][0-9])/([0123][0-9])(.*)$')
+path_re1=re.compile('^(.*)/([12][90][01289][0-9])/([01][0-9])/([0123][0-9])/(.*)$')
 path_re2=re.compile('^(.*)/([12][90][01289][0-9])/([01][0-9])/(.*)$')
 path_re3=re.compile('^(.*)/([12][90][01289][0-9])/(.*)$')
-
 
 # Load the cache
 cachefile = target + '/.photorger.cache'
@@ -146,6 +152,9 @@ def move_file(src, dst):
                 print(f'Rename {src} to {dst} failed: duplicate target exists; removing source')
                 remove_file(src)
             return True
+        elif norename:
+            print(f'Rename {src} to {dst} failed: target exists and is not duplicate and --norename was used')
+            return False
         else: # Target exists and is not a dup; create a new name for target
             split = dst.rfind('.')
             dst0 = dst[:split]

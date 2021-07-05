@@ -5,9 +5,9 @@
 
 Usage:
   photorger.py info <filename>...
-  photorger.py move [--source=<sourcepath>] [--dest=<destpath>] [--noclean] [--nodeep] [--pretend] [--nocache] [--norecurse] [--copy] [--verbose]
-  photorger.py clean [--source=<sourcepath>] [--dest=<destpath>] [--nodeep] [--pretend] [--nocache] [--norecurse]
-  photorger.py clean [--source=<sourcepath>] [--oldest|--newest] [--shortest|--longest] [--nodeep] [--pretend] [--nocache] [--norecurse] [--force]
+  photorger.py move [--source=<sourcepath>] [--dest=<destpath>] [--noclean] [--nodeep] [--nocache] [--norecurse] [--norename] [--copy] [--pretend] [--verbose]
+  photorger.py clean [--source=<sourcepath>] [--dest=<destpath>] [--nodeep] [--nocache] [--norecurse] [--pretend]
+  photorger.py clean [--source=<sourcepath>] [--oldest|--newest] [--shortest|--longest] [--nodeep] [--nocache] [--norecurse] [--force] [--pretend]
 
   photorger.py (-h | --help)
   photorger.py --version
@@ -19,10 +19,11 @@ Options:
   --target=<destpath>    Root directory of destination folder (default to current).
   --noclean              Don't remove duplicates
   --nodeep               Use just size and date or hash comparison when detecting duplicates (not content).
-  --pretend              Show what would be done but don't actually do it.
   --nocache              Don't save completed item status to cache.
   --norecurse            Don't recurse into child folders.
+  --norename             Don't move files (with rename) if the target has a file with same name already.
   --copy                 Create copies of original files rather than moving them.
+  --pretend              Show what would be done but don't actually do it.
   --verbose              Print a result line even for files that are not moved.
   --oldest               Keep oldest file(s) in duplicate group.
   --newest               Keep newest file(s) in duplicate group.
@@ -35,7 +36,11 @@ import os
 from docopt import docopt
 from .photorger import *
 
-if __name__ == '__main__':
+
+def main():
+    global source, target,  pretend, copy, verbose, force
+    global newest, oldest, shortest, longest
+    global norecurse, noclean, nodeep, nocache, norename
     arguments = docopt(__doc__, version='Photorger 1.0')
     source = arguments['--source']
     target = arguments['--dest']
@@ -53,6 +58,7 @@ if __name__ == '__main__':
     pretend = arguments['--pretend']
     nocache = arguments['--nocache']
     nodeep = arguments['--nodeep']
+    norename = arguments['--norename']
     copy = arguments['--copy']
     verbose = arguments['--verbose']
     newest = arguments['--newest']
@@ -73,3 +79,5 @@ if __name__ == '__main__':
         save_cache() 
 
 
+if __name__ == '__main__':
+    main()
