@@ -8,7 +8,7 @@ There are a bunch of command line arguments that will control the behavior; use:
 
     photorger --help
     
-to see them. There are three main commands: `info`, `move` and `clean`, to get EXIF info, move files into folders based on creation date, and remove duplicates, respectively.
+to see them. There are three main commands: `info`, `move` and `clean`, to get EXIF info, move files into folders based on creation date, and remove duplicates, respectively. `clean` and `move` can be destructive and result in the loss of files for which I take no responsibility; use at your own risk. You can use `--pretend` to see what actions would be taken in a trial run.
 
     photorger info <fname>
     
