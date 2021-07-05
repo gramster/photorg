@@ -8,7 +8,7 @@ There are a bunch of command line arguments that will control the behavior; use:
 
     photorger --help
     
-to see them. There are three main commands: `info`, `move` and `clean`, to get EXIF info, move files into folders based on creation date, and remove duplicates, respectively. `clean` and `move` can be destructive and result in the loss of files for which I take no responsibility; use at your own risk. You can use `--pretend` to see what actions would be taken in a trial run. It should be the case that at the very least no file will be deleted unless there is at least one byte-for-byte duplicate elsewhere, but I make no guarantee of that claim.
+to see them. There are four main commands: `info`, `move`, `clean` and `unshadow`, to get EXIF info, move files into folders based on creation date, remove duplicates, and make case-sensitive files safe for non-case-sensitive file systems, respectively. `clean` and `move` can be destructive and result in the loss of files for which I take no responsibility; use at your own risk. You can use `--pretend` to see what actions would be taken in a trial run. It should be the case that at the very least no file will be deleted unless there is at least one byte-for-byte duplicate elsewhere, but I make no guarantee of that claim.
 
     photorger info <fname>
     
@@ -28,7 +28,11 @@ will try to figure out the dates photo files in the source directory were taken 
 
 It can move files across file systems; if a simple rename fails it will fall back to copy/delete.
 
-This works for Unix-style paths only, so Mac/Linux and not Windows. 
+    photorger unshadow --source=<folder>
+
+will look for files in the same folder that have the same name and differ only in letter case and will rename files as necessary so that when used in a case-insensitive fashion (e.g. as an SMB mount) the files will not shadow each other but be seen as distinct.
+
+This script currently works for Unix-style paths only, so Mac/Linux and not Windows. 
 
 I take no responsibility for any loss or damage from using this script. Use --pretend until you have some confidence that it is not going to ruin your life.
 

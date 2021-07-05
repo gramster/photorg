@@ -8,6 +8,7 @@ Usage:
   photorger.py move [--source=<sourcepath>] [--dest=<destpath>] [--noclean] [--nodeep] [--nocache] [--norecurse] [--norename] [--copy] [--pretend] [--verbose]
   photorger.py clean [--source=<sourcepath>] [--dest=<destpath>] [--nodeep] [--nocache] [--norecurse] [--pretend]
   photorger.py clean [--source=<sourcepath>] [--oldest|--newest] [--shortest|--longest] [--nodeep] [--nocache] [--norecurse] [--force] [--pretend]
+  photorger.py unshadow [--source=<sourcepath>] [--norecurse] [--pretend]
 
   photorger.py (-h | --help)
   photorger.py --version
@@ -77,6 +78,9 @@ def main():
     if arguments["move"]:
         move_main()
         save_cache() 
+
+    if arguments["unshadow"]:
+        split_main()
 
 
 if __name__ == '__main__':

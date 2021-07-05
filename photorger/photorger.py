@@ -143,6 +143,19 @@ def relocate_file(src, dst):
         remove_file(src)
 
 
+def generate_distinct_name(fname):
+    # TODO: make this safe for files that have no '.'
+    split = fname.rfind('.')
+    dst0 = fname[:split]
+    dst1 = fname[split:]
+    i = 1
+    while True:
+        dst = f'{dst0}({i}){dst1}'
+        if not os.path.exists(dst):
+            return dst
+        i += 1
+
+
 def move_file(src, dst):
     if os.path.exists(dst):
         if os.path.getsize(src) == os.path.getsize(dst) and (nodeep or files_match(src, dst)):
@@ -156,15 +169,7 @@ def move_file(src, dst):
             print(f'Rename {src} to {dst} failed: target exists and is not duplicate and --norename was used')
             return False
         else: # Target exists and is not a dup; create a new name for target
-            split = dst.rfind('.')
-            dst0 = dst[:split]
-            dst1 = dst[split:]
-            i = 1
-            while True:
-                dst = f'{dst0}({i}){dst1}'
-                if not os.path.exists(dst):
-                    break
-                i += 1
+            dst = generate_distinct_name(dst)
 
     # Make sure target folder exists
     make_folder_for_file(dst)
@@ -474,4 +479,20 @@ def move_main():
         if filename in done:
             continue
         move_process(filename)
+
+
+def unshadow_main():
+    files = set()
+    for filename in glob.iglob(path_join(source, '/**/*'), recursive=not norecurse):
+        if not os.path.isfile(filename):
+            continue
+        if filename.find('@eaDir') >= 0 or filename.find('#recycle') >= 0:  # Synology use only; need a way to configure these
+            continue
+        lowfilename = filename.lower()
+        if lowfilename in files:
+            dst = generate_distinct_name(filename)
+            move_file(filename, dst)
+            files.add(dst)
+        else:
+            files.add(lowfilename)
 
