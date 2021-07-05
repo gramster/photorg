@@ -246,10 +246,6 @@ def get_date_from_name(fname):
 def move_process(fname):
     # Check location against EXIF data. If there is EXIF data and file is in a date-structured folder
     # but the wrong location, move it.
-    # TODO: we have three potential sources of dates: the path, the file name, and the EXIF data.
-    # We should fall back to different date tags in EXIF data if we can't get the original date.
-    # We should then try to reconcile these three sources, with EXIF data taking priority.
-    # We also need to be flexible about date formats.
     created = get_exif_date(fname)
     reason = '(name)'
     from_exif = False
@@ -443,7 +439,7 @@ def clean_main():
                         else:
                             i += 1
                     print(f'Duplicate group {group}')
-                    # TODO: figure out which to delete
+                    # Figure out which to delete
                     if newest:
                         to_delete = process_dup_group(group, key=os.path.getmtime, descending=True)
                     elif oldest:
@@ -473,7 +469,7 @@ def move_main():
     for filename in glob.iglob(path_join(source, '/**/*'), recursive=not norecurse):
         if not os.path.isfile(filename):
             continue
-        if filename.find('@eaDir') >= 0:  # Synology use only; need a way to configure these
+        if filename.find('@eaDir') >= 0 or filename.find('#recycle') >= 0:  # Synology use only; need a way to configure these
             continue
         if filename in done:
             continue
