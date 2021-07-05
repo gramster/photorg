@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-# Handle folders of form Month, day year where month is the name and day, year are numeric
+
 """Photorger.
 
 Usage:
